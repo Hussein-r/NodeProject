@@ -1,8 +1,10 @@
 import { Schema, model } from "mongoose";
+import Category from "./Category.js";
 
 const ProductSchema = new Schema({
   _id: {
     type: Number,
+    required: true,
   },
   title: {
     type: String,
@@ -19,10 +21,9 @@ const ProductSchema = new Schema({
     required: [true, "must provide description"],
     maxlength: [50, "name can not be more than 50 characters"],
   },
-
-  categoryId: {
-    type: Number,
-    required: [true, "must provide category id"],
+  category: {
+    type: Schema.Types.Number,
+    ref: "Category",
   },
   images: {
     type: Array,

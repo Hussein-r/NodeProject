@@ -1,4 +1,6 @@
 import { Router } from "express";
+import verifyToken from "../middlewares/verifyToken.js";
+import authUser from "../middlewares/authUser.js";
 import productController from "../controllers/product.js";
 
 const router = Router();
@@ -6,11 +8,11 @@ const router = Router();
 router
   .route("/")
   .get(productController.getAllProducts)
-  .post(productController.createProduct);
+  .post(verifyToken, authUser, productController.createProduct);
 router
   .route("/:id")
   .get(productController.getProduct)
-  .patch(productController.updateProduct)
-  .delete(productController.deleteProduct);
+  .patch(verifyToken, authUser, productController.updateProduct)
+  .delete(verifyToken, authUser, productController.deleteProduct);
 
 export default router;
